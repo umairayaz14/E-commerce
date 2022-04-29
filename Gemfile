@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.8'
 
 gem 'devise'
+gem 'pundit'
 gem "mini_magick"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

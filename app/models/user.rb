@@ -13,9 +13,11 @@ class User < ApplicationRecord
   private
 
   def avatar_type
-   if !avatar.blob.content_type.in?(%('image/jpeg image/png'))
-     avatar.purge
-     errors.add(:avatars, 'Please upload in jpeg or png format')
-   end
+    if avatar.attached?
+      if !avatar.blob.content_type.in?(%('image/jpeg image/png'))
+        avatar.purge
+        errors.add(:avatars, 'Please upload in jpeg or png format')
+      end
+    end
   end
 end
