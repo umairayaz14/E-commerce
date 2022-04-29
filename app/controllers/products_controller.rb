@@ -26,9 +26,10 @@ class ProductsController < ApplicationController
   # DELETE /products/1 or /products/1.json
   def destroy
     if @product.destroy
-      redirect_to products_url, notice: 'Product was successfully destroyed.'
+      redirect_to products_path, notice: 'Product was successfully destroyed.'
     else
       flash[:warning] = 'Unable to destroy Product.'
+      redirect_to products_path
     end
   end
 
