@@ -1,4 +1,12 @@
 <p id="notice"><%= notice %></p>
+
+<% flash.each do |name, msg| %>
+    <div class='container-fluid' style='color: red'>
+    <br/>
+            <%= content_tag :div, msg, :id => "flash_#{name}",  :class => "alert alert-#{name}" %>
+     </div>
+<% end %>
+
 <div class='align'>
   <%= link_to "New Product", new_product_path %>
 </div>

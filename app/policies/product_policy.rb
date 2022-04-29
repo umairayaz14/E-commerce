@@ -8,11 +8,11 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def update?
-    return true if user.present? && user == product.user
+    user.present? && user == product.user
   end
 
   def destroy?
-    return true if user.present? && user == product.user
+    user.present? && user == product.user
   end
 
   private

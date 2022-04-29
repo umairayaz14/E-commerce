@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def user_not_authorized
-   flash[:warning] = 'You are not authorized to perform this action.'
-   redirect_to(request.referrer || root_path)
+    flash[:notice] = 'You are not authorized to perform this action.'
+    redirect_to(user_session_path)
   end
 
   def configure_permitted_parameters
