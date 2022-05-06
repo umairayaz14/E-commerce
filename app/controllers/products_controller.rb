@@ -29,7 +29,6 @@ class ProductsController < ApplicationController
       redirect_to products_path, notice: 'Product was successfully destroyed.'
     else
       flash[:warning] = 'Unable to destroy Product.'
-      redirect_to products_path
     end
   end
 

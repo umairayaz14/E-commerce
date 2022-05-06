@@ -8,11 +8,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:warning] = 'You are not authorized to perform this action.'
-    if user_signed_in?
-      redirect_to products_path
-    else
-      redirect_to user_session_path
-    end
+    redirect_to user_session_path
   end
 
   def configure_permitted_parameters
