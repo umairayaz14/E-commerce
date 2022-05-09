@@ -1,12 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<% flash.each do |name, msg| %>
-    <div class='container-fluid' style='color: red'>
-    <br/>
-      <%= content_tag :div, msg, :id => "flash_#{name}",  :class => "alert alert-#{name}" %>
-     </div>
-<% end %>
-
 <div class='align'>
   <%= link_to "New Product", new_product_path %>
 </div>
@@ -34,6 +27,8 @@
           <% end %>
         <% end%>
         </td>
+        <td><%= link_to 'Add Comment', new_product_comment_path(product)%>
+        <td><%= link_to 'Show Comments', product_comments_path(product)%>
         <td><%= link_to 'Destroy', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
       </tr>

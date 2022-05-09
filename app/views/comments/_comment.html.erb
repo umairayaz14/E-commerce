@@ -1,0 +1,10 @@
+  <div class='comments'>
+   <tr>
+     <td><%=comment.name%></td>
+     <td><%=comment.description%></td>
+     <td><%=comment.user_id%></td>
+     <td><%=comment.product_id%></td>
+     <td><%=link_to "Edit", edit_product_comment_path(comment.product_id, comment)%>
+     <td><%= link_to 'Destroy', product_comment_path(comment.product_id, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+   </tr>
+  </div>

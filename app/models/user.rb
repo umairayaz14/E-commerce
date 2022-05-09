@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validate :avatar, :avatar_type
 
   has_many :products, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_one_attached :avatar
 
   private

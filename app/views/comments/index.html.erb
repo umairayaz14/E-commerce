@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+<p id="notice"><%= alert %></p>
+
+<h1 class='h1-align'>Comments</h1>
+
+<table class='tab'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>User_id</th>
+      <th>Product_id</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+  <tbody>
+   <%=render @comments%>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Comment', new_product_comment_path %>
+<%= link_to 'Back', products_path %>
