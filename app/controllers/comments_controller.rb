@@ -1,19 +1,15 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:index, :new, :create]
+
   # GET /comments or /comments.json
   def index
-    @product = Product.find(params[:product_id])
     @comments = @product.comments.all
     authorize @comments
   end
 
-  # GET /comments/1 or /comments/1.json
-  def show
-  end
-
   # GET /comments/new
   def new
-    @product = Product.find(params[:product_id])
     @comment = Comment.new
     authorize @comment
   end
@@ -24,9 +20,8 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @product = Product.find(params[:product_id])
     @comment = @product.comments.build(comment_params)
-    @comment.user_id = current_user.id
+    # @comment.user_id = current_user.id
     if @product.user_id != @comment.user_id
       authorize @comment
       respond_to do |format|
@@ -57,15 +52,22 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
-    @comment.destroy
     respond_to do |format|
-      format.html { redirect_to product_comments_url, notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
+      if @comment.destroy
+        format.html { redirect_to product_comments_url, notice: "Comment was successfully destroyed." }
+        format.json { head :no_content }
+      else
+        flash[:alert] = 'Unable to destroy comment!'
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_product
+      @product = Product.find(params[:product_id])
+    end
+
     def set_comment
       @product = Product.find(params[:product_id])
       @comment = @product.comments.find(params[:id])
@@ -74,6 +76,8 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:name, :description)
+      params.require(:comment).permit(:name, :description).tap do |params|
+        params[:user_id] = current_user.id
+      end
     end
 end

@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-    @product.user = current_user
+    @product.user_id = current_user.id
     authorize @product
     if @product.save
       redirect_to products_path, notice: 'Product was successfully created.'
