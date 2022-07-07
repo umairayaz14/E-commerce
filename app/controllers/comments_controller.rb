@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
   # GET /comments or /comments.json
   def index
     @comments = @product.comments.all
+    #@comments = Comment.all
     authorize @comments
   end
 
@@ -21,6 +22,7 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @comment = @product.comments.build(comment_params)
+    #@comment = Comment.new(comment_params)
     # @comment.user_id = current_user.id
     if @product.user_id != @comment.user_id
       authorize @comment
@@ -33,7 +35,7 @@ class CommentsController < ApplicationController
       end
     else
       flash[:alert] = 'User can not comment on his product!'
-      redirect_to product_comments_path
+      redirect_to product_path
     end
   end
 
@@ -41,7 +43,8 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to product_comments_path, notice: "Comment was successfully updated." }
+        #format.html { redirect_to product_comments_path, notice: "Comment was successfully updated." }
+        format.html { redirect_to product_path(@product), notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +57,8 @@ class CommentsController < ApplicationController
   def destroy
     respond_to do |format|
       if @comment.destroy
-        format.html { redirect_to product_comments_url, notice: "Comment was successfully destroyed." }
+        #format.html { redirect_to product_comments_url, notice: "Comment was successfully destroyed." }
+        format.html { redirect_to product_url(@product), notice: "Comment was successfully destroyed." }
         format.json { head :no_content }
       else
         flash[:alert] = 'Unable to destroy comment!'
@@ -71,6 +75,7 @@ class CommentsController < ApplicationController
     def set_comment
       @product = Product.find(params[:product_id])
       @comment = @product.comments.find(params[:id])
+      #@comment = Comment.find(params[:id])
       authorize @comment
     end
 

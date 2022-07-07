@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:edit, :show, :update, :destroy]
   # GET /products or /products.json
   def index
     @products = Product.all
@@ -11,6 +11,10 @@ class ProductsController < ApplicationController
     authorize @product
   end
 
+  def show
+    @comment = @product.comments.build
+    @comment.user_id = current_user.id if current_user.present?
+  end
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
@@ -51,6 +55,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :description, images: [])
+      params.require(:product).permit(:name, :description, :quantity, images: [])
     end
 end

@@ -3,6 +3,10 @@ class ProductPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def create?
     user.present?
   end
