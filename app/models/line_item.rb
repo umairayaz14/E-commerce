@@ -1,0 +1,10 @@
+class LineItem < ApplicationRecord
+  belongs_to :product
+  belongs_to :cart
+
+  def total_price
+    self.quantity * self.product.price
+  end
+
+  delegate :quantity, to: :product, prefix: true
+end
