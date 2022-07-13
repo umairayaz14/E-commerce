@@ -1,7 +1,7 @@
 class CommentPolicy < ApplicationPolicy
 
   def create?
-    true
+    user.id != record.user_id
   end
 
   def update?

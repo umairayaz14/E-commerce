@@ -22,7 +22,7 @@
         <% end %>
       </span>
       <% if user_signed_in? %>
-        <p style="margin-left:100px">Signed in as
+        <p class="ml">Signed in as
         <%= current_user.username %>. Not you?
         <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
           <% else %>

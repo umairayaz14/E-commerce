@@ -15,19 +15,14 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
+    authorize @product, policy_class: CommentPolicy
     @comment = @product.comments.build(comment_params)
-    if @product.user_id != @comment.user_id
-      authorize @comment
-      respond_to do |format|
-        if @comment.save
-          format.js
-        else
-          format.html { render :new }
-        end
+    respond_to do |format|
+      if @comment.save
+        format.js
+      else
+        format.html { render :new }
       end
-    else
-      flash[:alert] = 'User can not comment on his product!'
-      redirect_to product_path
     end
   end
 

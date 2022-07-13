@@ -33,7 +33,6 @@
             <div id='add-comment' class="col-sm-5 col-md-6 col-12 pb-4 ovf">
                 <h1>Comments</h1>
                 <% @product.comments.each do |comment| %>
-                 <% if comment.persisted? %>
                    <div class="darker mt-4 text-justify col-12">
                     <h4 style="color: white" ><%= comment.name%></h4>
                     <br>
@@ -41,7 +40,6 @@
                      <%=link_to "Edit", edit_product_comment_path(comment.product_id, comment)%>
                      <%= link_to 'Destroy', product_comment_path(comment.product_id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
                    </div>
-                 <% end %>
                 <% end %>
             </div>
             <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
