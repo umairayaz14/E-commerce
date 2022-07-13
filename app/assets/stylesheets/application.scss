@@ -11,15 +11,21 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
- *= require_self
  */
+
+ @import "bootstrap";
 
 .img {
   margin-right: 20px;
+  margin-left: 20px;
   position: relative;
   top: 20px;
 }
 
 .align {
   text-align: center;
+}
+
+.ml{
+  margin-left:100px
 }

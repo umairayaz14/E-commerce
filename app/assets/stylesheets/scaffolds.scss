@@ -20,10 +20,11 @@ pre {
 }
 
 a {
-  color: #000;
+  color: white;
+  background-color: rgba(16, 46, 46, 1) !important;
 
   &:visited {
-    color: #666;
+    color: white;
   }
 
   &:hover {
@@ -43,7 +44,7 @@ td {
 div {
   &.field, &.actions {
     margin-bottom: 10px;
-
+    color: white;
   }
 }
 
