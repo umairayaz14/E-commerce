@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :show, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
   # GET /products or /products.json
   def index
     @products = Product.all
@@ -17,8 +18,7 @@ class ProductsController < ApplicationController
   end
   # POST /products or /products.json
   def create
-    @product = Product.new(product_params)
-    @product.user_id = current_user.id
+    @product = current_user.products.new(product_params)
     authorize @product
     if @product.save
       redirect_to products_path, notice: 'Product was successfully created.'

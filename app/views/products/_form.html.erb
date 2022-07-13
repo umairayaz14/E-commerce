@@ -13,25 +13,31 @@
 
   <div class="field">
     <%= form.label :name %>
+    <br>
     <%= form.text_field :name %>
   </div>
 
   <div class="field">
     <%= form.label :description %>
+    <br>
     <%= form.text_area :description %>
   </div>
 
   <div class="field">
     <%= form.label :quantity %>
+    <br>
     <%= form.text_area :quantity %>
   </div>
 
   <div class="field">
-    <%= form.label :images %><br />
+    <%= form.label :images %><br/>
     <%= form.file_field :images, multiple: true %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+
+  <%= link_to 'Back', products_path %>
 <% end %>
+

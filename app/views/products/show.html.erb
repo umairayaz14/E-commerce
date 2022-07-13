@@ -1,58 +1,62 @@
 <p id="notice"><%= notice %></p>
 <p id='notice'><%= alert %></p>
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @product.quantity %>
-</p>
 
- <% if @product.images.attached? %>
-          <% @product.images.each do |img| %>
+<div class="height  justify-content-center align-items-center col-12">
+
+    <div class="card p-3 w-100">
+
+        <div class=" justify-content-between align-items-center ">
+            <div class="mt-2">
+                <h4 class="text-uppercase">Name: <%= @product.name %></h4>
+                <div class="mt-5">
+                    <h5 class="text-uppercase mb-0">Description: <%= @product.description %></h5>
+                    <h1 class="main-heading mt-0">Quantity: <%= @product.quantity %></h1>
+                </div>
+            </div>
+            <div class="image">
+             <% if @product.images.attached? %>
+              <% @product.images.each do |img| %>
                <%= image_tag url_for(img) , size: '200x200'%>
-          <% end %>
-        <% end%>
+              <% end %>
+             <% end%>
+            </div>
+        </div>
+        <br>
+        <br>
+        <button class="btn btn-danger">Add to cart</button>
+</div>
 
- <p>
+<div class="container">
+        <div class="row">
+            <div id='add-comment' class="col-sm-5 col-md-6 col-12 pb-4 ovf">
+                <h1>Comments</h1>
+                <% @product.comments.each do |comment| %>
+                 <% if comment.persisted? %>
+                   <div class="darker mt-4 text-justify col-12">
+                    <h4 style="color: white" ><%= comment.name%></h4>
+                    <br>
+                    <p><%= comment.description %></p>
+                     <%=link_to "Edit", edit_product_comment_path(comment.product_id, comment)%>
+                     <%= link_to 'Destroy', product_comment_path(comment.product_id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+                   </div>
+                 <% end %>
+                <% end %>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
 
-<div class="container try">
-<table class='tab'>
- <thead>
-  <tr>
-   <th>Name</th>
-   <th>Description</th>
-   <th colspan="2"></th>
-  </tr>
- </thead>
- <tbody id="add-comment">
+                    <div>
+                        <% if current_user %>
+                         <% if @product.user_id != current_user.id %>
+                         <h4>Leave a comment</h4>
+                         <%= render "comments/form" %>
+                         <% end %>
+                        <% end %>
+                    </div>
 
-   <h2>Comments</h2>
-   <% @product.comments.each do |comment| %>
-    <tr>
-    <% if comment.persisted? %>
-      <td><%= comment.name%></td>
-
-      <td><%= comment.description %></td>
-
-      <td><%=link_to "Edit", edit_product_comment_path(comment.product_id, comment)%></td>
-      <td><%= link_to 'Destroy', product_comment_path(comment.product_id, comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
-    <% end %>
-    </tr>
-   <% end %>
-
- </tbody>
-</table>
-
- <h2>Add a comment:</h2>
- <%= render "comments/form" %>
- <%= link_to 'Back', products_path %>
+            </div>
+        </div>
+        <br>
+        <button class= "btn btn-danger"><%= link_to 'Back', products_path, class: "btn btn-danger" %></button>
 </div>

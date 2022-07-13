@@ -8,15 +8,15 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present?
+    true
   end
 
   def update?
-    user.present? && user == product.user
+    user == product.user
   end
 
   def destroy?
-    user.present? && user == product.user
+    user == product.user
   end
 
   private

@@ -1,13 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :set_product, only: [:index, :new, :create]
-
-  # GET /comments or /comments.json
-  def index
-    @comments = @product.comments.all
-    #@comments = Comment.all
-    authorize @comments
-  end
+  before_action :set_product, only: [:new, :create]
+  before_action :authenticate_user!
 
   # GET /comments/new
   def new
@@ -22,8 +16,6 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @comment = @product.comments.build(comment_params)
-    #@comment = Comment.new(comment_params)
-    # @comment.user_id = current_user.id
     if @product.user_id != @comment.user_id
       authorize @comment
       respond_to do |format|
@@ -43,7 +35,6 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        #format.html { redirect_to product_comments_path, notice: "Comment was successfully updated." }
         format.html { redirect_to product_path(@product), notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
@@ -57,7 +48,6 @@ class CommentsController < ApplicationController
   def destroy
     respond_to do |format|
       if @comment.destroy
-        #format.html { redirect_to product_comments_url, notice: "Comment was successfully destroyed." }
         format.html { redirect_to product_url(@product), notice: "Comment was successfully destroyed." }
         format.json { head :no_content }
       else
@@ -75,7 +65,6 @@ class CommentsController < ApplicationController
     def set_comment
       @product = Product.find(params[:product_id])
       @comment = @product.comments.find(params[:id])
-      #@comment = Comment.find(params[:id])
       authorize @comment
     end
 
