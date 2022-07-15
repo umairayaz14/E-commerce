@@ -3,10 +3,10 @@ class Cart < ApplicationRecord
   has_many :products, through: :line_items
 
   def sub_total
-    sum = 0
-    self.line_items.each do |line_item|
-      sum += line_item.total_price
-    end
-    return sum
+    line_items.inject(0) { |total, line_item| total + line_item.total_price }
+  end
+
+  def total_quantity
+    line_items.inject(0) { |total, line_item| total + line_item.quantity }
   end
 end

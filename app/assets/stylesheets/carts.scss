@@ -1,3 +1,97 @@
 // Place all the styles related to the Carts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.plus-minus {
+  position: relative;
+}
+
+.plus {
+  position: absolute;
+  top: -4px;
+  left: 2px;
+  cursor: pointer;
+}
+
+.minus {
+  position: absolute;
+  top: 8px;
+  left: 5px;
+  cursor: pointer;
+}
+
+.border-top {
+  border-top: 1px solid #EEEEEE !important;
+  margin-top: 20px;
+  padding-top: 15px;
+}
+
+.pay {
+  width: 80px;
+  height: 40px;
+  border-radius: 5px;
+  margin: 10px 20px 10px 0px;
+  cursor: pointer;
+  box-shadow: 1px 5px 10px 1px rgba(0,0,0,0.2);
+}
+
+.gray {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.gray .pay {
+  box-shadow: none;
+}
+
+#tax {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.btn-blue {
+  border: none;
+  border-radius: 10px;
+  background-color: #673AB7;
+  color: #fff;
+  padding: 8px 15px;
+  margin: 20px 0px;
+  cursor: pointer;
+}
+
+.btn-blue:hover {
+  background-color: #311B92;
+  color: #fff;
+}
+
+#checkout {
+  float: left;
+}
+
+#check-amt {
+  float: right;
+}
+
+@media screen and (max-width: 768px) {
+  .book, .book-img {
+      width: 100px;
+      height: 150px;
+  }
+
+  .card {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+
+  .mob-text {
+      font-size: 13px;
+  }
+
+  .pad-left {
+      padding-left: 20px;
+  }
+}

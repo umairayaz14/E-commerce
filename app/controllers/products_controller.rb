@@ -14,8 +14,8 @@ class ProductsController < ApplicationController
 
   def show
     # @comment = @product.comments.build
-    @comment = current_user.comments.new
-    @comment.user_id = current_user.id if current_user.present?
+    @comment = Comment.new
+    # @comment.user_id = current_user.id if current_user.present?
   end
   # POST /products or /products.json
   def create

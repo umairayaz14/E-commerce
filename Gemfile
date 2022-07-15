@@ -8,6 +8,7 @@ gem 'pundit'
 gem "mini_magick"
 gem 'jquery-rails'
 gem 'bootstrap'
+gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.6', '>= 5.2.6.2'
 # Use postgresql as the database for Active Record

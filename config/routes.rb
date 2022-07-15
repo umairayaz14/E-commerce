@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  post 'checkout/create' => 'checkout#create', as: "checkout_create"
+
   get 'carts/:id', to: "carts#show", as: "cart"
   delete 'carts/:id', to: "carts#destroy"
 
@@ -14,5 +17,7 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  get 'order', to: "orders#create", as: "final_order"
+  get 'orders', to: "orders#index", as: "orders"
   root 'products#index'
 end
