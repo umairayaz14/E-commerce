@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_tag  products_path, method: :get do %>
+    <p class="d-flex flex-row justify-content-center">
+      <%= text_field_tag :query,params[:query], class: "form-control col-4" %>
+      <%= submit_tag "Search",name:nil,class: " ml-1 btn btn-primary" %>
+    </p>
+  <% end %>
+
+  <br>
 <div class='align mb-3'>
   <button class="btn btn-danger"><%= link_to "New Product", new_product_path %></button>
 </div>

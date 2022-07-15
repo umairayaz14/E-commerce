@@ -11,7 +11,7 @@ class LineItemsController < ApplicationController
       # Find the line_item with the chosen_product
       @line_item = current_cart.line_items.find_by(product_id: chosen_product)
       # Iterate the line_item's quantity by one
-      @line_item.quantity += 1
+      @line_item.quantity += 1 if @line_item.quantity < @line_item.product.quantity
     else
       @line_item = LineItem.new
       @line_item.cart = current_cart

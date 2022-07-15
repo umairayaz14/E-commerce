@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_14_120828) do
+ActiveRecord::Schema.define(version: 2022_07_15_104953) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(version: 2022_07_14_120828) do
     t.datetime "updated_at", null: false
     t.integer "quantity"
     t.decimal "price"
+    t.index ["name"], name: "index_products_on_name", opclass: :gin_trgm_ops, using: :gin
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 

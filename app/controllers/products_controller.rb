@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     authorize @products
+
+    query = params[:query]
+    @products = @products.where("name ILIKE '%#{query}%'") if query.present?
+
   end
 
   def new
