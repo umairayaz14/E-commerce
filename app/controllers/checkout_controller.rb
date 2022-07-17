@@ -1,5 +1,6 @@
-class CheckoutController < ApplicationController
+# frozen_string_literal: true
 
+class CheckoutController < ApplicationController
   def create
     line_items = current_cart.line_items.map do |item|
       {
@@ -21,5 +22,4 @@ class CheckoutController < ApplicationController
       format.js
     end
   end
-
 end

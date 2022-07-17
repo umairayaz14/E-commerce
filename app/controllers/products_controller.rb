@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :show, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_product, only: %i[edit show update destroy]
+  before_action :authenticate_user!, except: %i[index show]
   # GET /products or /products.json
   def index
     @products = Product.all
@@ -21,6 +23,7 @@ class ProductsController < ApplicationController
     @comment = Comment.new
     # @comment.user_id = current_user.id if current_user.present?
   end
+
   # POST /products or /products.json
   def create
     @product = current_user.products.new(product_params)
@@ -49,17 +52,17 @@ class ProductsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   private
-    def set_product
-      @product = Product.find(params[:id])
-      authorize @product
-    end
 
-    # Only allow a list of trusted parameters through.
-    def product_params
-      params.require(:product).permit(:name, :description, :price, :quantity, images: [])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+    authorize @product
+  end
+
+  # Only allow a list of trusted parameters through.
+  def product_params
+    params.require(:product).permit(:name, :description, :price, :quantity, images: [])
+  end
 end

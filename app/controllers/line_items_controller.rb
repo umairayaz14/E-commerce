@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LineItemsController < ApplicationController
   before_action :current_cart
 
@@ -45,15 +47,14 @@ class LineItemsController < ApplicationController
 
   def reduce_quantity
     @line_item = LineItem.find(params[:id])
-    if @line_item.quantity > 1
-      @line_item.quantity -= 1
-    end
+    @line_item.quantity -= 1 if @line_item.quantity > 1
     @line_item.save
     redirect_to cart_path(@current_cart)
   end
 
   private
-    def line_item_params
-      params.require(:line_item).permit(:quantity,:product_id, :cart_id)
-    end
+
+  def line_item_params
+    params.require(:line_item).permit(:quantity, :product_id, :cart_id)
+  end
 end

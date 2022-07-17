@@ -24,7 +24,11 @@
         </div>
         <br>
         <br>
-        <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id) %>
+        <% if @product.quantity != 0 %>
+         <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id) %>
+        <% else %>
+         <p>Product out of stock! </p>
+        <% end %>
 </div>
 
 <div class="container">
