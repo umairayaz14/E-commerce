@@ -1,17 +1,6 @@
 class CheckoutController < ApplicationController
 
   def create
-    # xyz = " "
-    # current_cart.line_items.each do |li|
-    # xyz += " #{li.product.name}\n"
-    # end
-
-  #   [{
-  #     name: xyz,
-  #     amount: current_cart.sub_total.truncate * 100,
-  #     currency: "usd",
-  #     quantity: current_cart.total_quantity
-  # }]
     line_items = current_cart.line_items.map do |item|
       {
         name: item.product.name,

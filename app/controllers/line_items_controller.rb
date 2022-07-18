@@ -25,8 +25,11 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item = LineItem.find(params[:id])
-    @line_item.destroy
-    redirect_to cart_path(@current_cart)
+    if @line_item.destroy
+      redirect_to cart_path(@current_cart), notice: 'Product was successfully destroyed.'
+    else
+      flash[:warning] = 'Unable to destroy Product.'
+    end
   end
 
   def add_quantity
@@ -34,11 +37,10 @@ class LineItemsController < ApplicationController
     if @line_item.quantity < @line_item.product.quantity
       @line_item.quantity += 1
       @line_item.save
-      redirect_to cart_path(@current_cart)
     else
-      flash[:alert] = "Product out of stock!"
-      redirect_to cart_path(@current_cart)
+      flash[:alert] = 'Product out of stock!'
     end
+    redirect_to cart_path(@current_cart)
   end
 
   def reduce_quantity
