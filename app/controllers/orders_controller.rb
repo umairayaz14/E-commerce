@@ -2,8 +2,7 @@
 
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  def index
-  end
+  def index; end
 
   def create
     update_product_stock

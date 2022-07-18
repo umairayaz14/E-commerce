@@ -10,7 +10,6 @@ class ProductsController < ApplicationController
 
     query = params[:query]
     @products = @products.where("name ILIKE '%#{query}%'") if query.present?
-
   end
 
   def new

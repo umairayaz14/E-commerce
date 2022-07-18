@@ -14,21 +14,21 @@ class CheckoutController < ApplicationController
     end
 
     @coupon = Coupon.find_by(name: params[:coupon_name])
-    if @coupon
-      #amount = (current_cart.sub_total - (current_cart.sub_total * @coupon.value)).truncate
-      url = final_order_url(coupon: @coupon.value)
-    else
-      #amount = current_cart.sub_total.truncate
-      url = final_order_url
-    end
+    url = if @coupon
+            final_order_url(coupon: @coupon.value)
+          else
+            final_order_url
+          end
 
     if @coupon && Date.current <= @coupon.valid_til || @coupon.nil?
+      @temp = Stripe::Coupon.create(percent_off: @coupon.value * 100, duration: 'once') if @coupon
       @session = Stripe::Checkout::Session.create({
                                                     payment_method_types: ['card'],
                                                     line_items: line_items,
                                                     mode: 'payment',
                                                     success_url: url,
-                                                    cancel_url: cart_url(current_cart.id)
+                                                    cancel_url: cart_url(current_cart.id),
+                                                    discounts: [{ coupon: @temp&.id }]
                                                   })
 
       respond_to do |format|
