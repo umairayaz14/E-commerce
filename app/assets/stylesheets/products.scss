@@ -90,10 +90,10 @@ body{
 body {
   background-color: #eee
 }
-                                .mt-100{
-                                  margin-top: 100px;
-                                }
-                                .card {
+.mt-100{
+  margin-top: 100px;
+}
+.card {
   border-radius: 7px !important;
   border-color: #e1e7ec;
 }
@@ -108,7 +108,7 @@ body {
 }
 
 a {
-  color: #0da9ef;
+  color: white;
   text-decoration: none !important;
 }
 
@@ -154,3 +154,6 @@ a {
   border-radius: .2rem;
 }
 
+.positioning{
+  padding-left: 80%;
+}

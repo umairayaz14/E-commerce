@@ -1,0 +1,71 @@
+<p id='notice'><%= notice %></p>
+<p id='notice'><%= alert %></p>
+
+
+<div class="posi"><%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary" %></div>
+<div class="container px-4 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="col-5">
+            <h4 class="heading">Shopping Cart ( <%= @cart.total_quantity %> items)</h4>
+        </div>
+        <div class="col-7">
+            <div class="row text-right">
+                <div class="col-4">
+                    <h6 class="mt-2">Price</h6>
+                </div>
+                <div class="col-4">
+                    <h6 class="mt-2">Quantity</h6>
+                </div>
+                <div class="col-4">
+                    <h6 class="mt-2">Total Price</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center border-top">
+        <% @cart.line_items.each do |line_item| %>
+        <div class="col-5">
+            <div class="row d-flex">
+                <div class="my-auto flex-column d-flex pad-left">
+                    <h6 class="mob-text"><%= line_item.product.name %></h6>
+                    <p class="mob-text"><%= line_item.product.description %></p>
+                </div>
+            </div>
+        </div>
+        <div class="my-auto col-7">
+            <div class="row text-right">
+                <div class="col-4"><%= number_to_currency(line_item.product.price) %></p>
+                </div>
+                <div class="col-4">
+                    <div class="row d-flex justify-content-end px-3">
+                        <div class="d-flex flex-column plus-minus">
+                            <%= link_to '+', line_item_add_path(id: line_item), method: :post, class: 'btn btn-primary' %>
+                            <p class="mb-0" id="cnt1"><%= line_item.quantity %></p>
+                            <%= link_to '-', line_item_reduce_path(id: line_item), method: :post, class: 'btn btn-primary' %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h6 class="mob-text"><%= number_to_currency(line_item.total_price) %></h6>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="col-12">
+        <div class="row d-flex justify-content-between px-4">
+            <p class="mb-1 text-left">Subtotal</p>
+            <h6 class="mb-1 text-right"><%= number_to_currency(@cart.sub_total) %></h6>
+        </div>
+        <button class="btn-block btn-blue">
+            <span>
+                <span id="checkout"><%= button_to "Submit Payment", checkout_create_path, params: {cart_id: @cart.id }, remote: true %></span>
+                <span id="check-amt"><%= number_to_currency(@cart.sub_total) %></span>
+            </span>
+        </button>
+    </div>
+</div>

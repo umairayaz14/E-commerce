@@ -1,9 +1,7 @@
 <p id="notice"><%= notice %></p>
 <p id='notice'><%= alert %></p>
 
-
-
-<div class="height  justify-content-center align-items-center col-12">
+<div class="height justify-content-center align-items-center col-12">
 
     <div class="card p-3 w-100">
 
@@ -12,6 +10,7 @@
                 <h4 class="text-uppercase">Name: <%= @product.name %></h4>
                 <div class="mt-5">
                     <h5 class="text-uppercase mb-0">Description: <%= @product.description %></h5>
+                    <h5 class="text-uppercase mb-0">Price: <%= @product.price %></h5>
                     <h1 class="main-heading mt-0">Quantity: <%= @product.quantity %></h1>
                 </div>
             </div>
@@ -25,7 +24,7 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-danger">Add to cart</button>
+        <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id) %>
 </div>
 
 <div class="container">

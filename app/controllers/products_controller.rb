@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     authorize @products
+
+    query = params[:query]
+    @products = @products.where("name ILIKE '%#{query}%'") if query.present?
+
   end
 
   def new
@@ -14,8 +18,8 @@ class ProductsController < ApplicationController
 
   def show
     # @comment = @product.comments.build
-    @comment = current_user.comments.new
-    @comment.user_id = current_user.id if current_user.present?
+    @comment = Comment.new
+    # @comment.user_id = current_user.id if current_user.present?
   end
   # POST /products or /products.json
   def create
@@ -56,6 +60,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :description, :quantity, images: [])
+      params.require(:product).permit(:name, :description, :price, :quantity, images: [])
     end
 end

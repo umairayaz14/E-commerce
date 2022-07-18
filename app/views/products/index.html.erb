@@ -1,38 +1,46 @@
 <p id="notice"><%= notice %></p>
 
-<div class='align mb-3'>
-  <button class="btn btn-danger"><%= link_to "New Product", new_product_path %></button>
-</div>
+<%= form_tag  products_path, method: :get do %>
+  <p class="d-flex flex-row justify-content-center">
+    <%= text_field_tag :query,params[:query], class: "form-control col-4" %>
+    <%= submit_tag "Search",name:nil,class: " ml-1 btn btn-primary" %>
+  </p>
+<% end %>
 
-<div class="container">
-  <div class="row">
-  <% @products.each do |product| %>
-    <div class="col-md-4 col-sm-6">
-      <div class="card mb-30">
-          <div class="inner">
-           <div class="card-body text-center">
-              <h4 class="card-title">Name: <%= product.name %></h4>
-              <p class="text-muted">Description: <%= product.description %></p>
-              <button class="btn btn-danger"><%= link_to 'Show Product', product_path(product)%></button>
-           </div>
-           <div class="main-img text-center">
-            <% if product.images.attached? %>
-             <% product.images.each do |img| %>
-              <%= image_tag url_for(img) , size: '100x100'%>
-             <% end %>
-            <% end %>
-           </div>
-           <div class="text-center">
-           <br>
-             <% if current_user && product.user_id == current_user.id %>
-              <%= link_to 'Destroy', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %>
-              <%= link_to 'Edit', edit_product_path(product) %>
-             <% end %>
-           </div>
+<br>
+  <div class='align mb-3'>
+    <button class="btn btn-danger"><%= link_to "New Product", new_product_path %></button>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <% @products.each do |product| %>
+        <div class="col-md-4 col-sm-6">
+          <div class="card mb-30">
+            <div class="inner">
+              <div class="card-body text-center">
+                <h4 class="card-title"><%= product.name %></h4>
+                <p class="text-muted">Description:
+                  <%= product.description %></p>
+                <button class="btn btn-danger"><%= link_to 'Show Product', product_path(product)%></button>
+              </div>
+              <div class="main-img text-center">
+                <% if product.images.attached? %>
+                  <% product.images.each do |img| %>
+                    <%= image_tag url_for(img) , size: '100x100'%>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="text-center">
+                <br>
+                  <% if current_user && product.user_id == current_user.id %>
+                    <%= link_to 'Destroy', product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%= link_to 'Edit', edit_product_path(product) %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           </div>
+        <% end %>
       </div>
     </div>
-  <% end %>
-  </div>
-</div>
-

@@ -16,7 +16,7 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user == product.user
+    update?
   end
 
   private
