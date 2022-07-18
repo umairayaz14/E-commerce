@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CheckoutController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     line_items = current_cart.line_items.map do |item|
       {

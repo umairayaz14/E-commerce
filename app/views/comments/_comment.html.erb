@@ -1,5 +1,5 @@
    <div class="darker mt-4 text-justify col-12">
-     <h4 style="color: white"><%=comment.name%></h4>
+     <h4 style="color: white"><%=comment.name%> <span> - <%= comment.user.username %> </h4>
      <br>
      <p><%=comment.description%></p>
      <td><%=link_to "Edit", edit_product_comment_path(comment.product_id, comment)%>

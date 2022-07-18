@@ -18,7 +18,7 @@
             <% img = current_user.avatar %>
               <%= image_tag url_for(img) , size: '50x50' %>
           <% else %>
-              <%= image_tag 'ava.png' %>
+              <%= image_tag 'ava.png', size: '50x50' %>
           <% end %>
         <% end %>
       </span>
@@ -35,9 +35,9 @@
 
       <div class="positioning">
         <% if session[:cart_id] %>
-          <%= link_to "My Cart", cart_path(session[:cart_id]), class: "btn btn-primary" %>
+          <%= link_to "My Cart", cart_path(session[:cart_id]), class: "btn btn-danger" %>
         <% else %>
-          <p> Cart is empty! </p>
+          <h4 class="btn btn-danger"> Cart is empty! </h4>
         <% end %>
       </div>
     </div>

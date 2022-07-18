@@ -2,7 +2,7 @@
 <p id='notice'><%= alert %></p>
 
 
-<div class="posi"><%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary" %></div>
+<div class="posi"><%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger dang" %></div>
 <div class="container px-4 py-5 mx-auto">
     <div class="row d-flex justify-content-center">
         <div class="col-5">
@@ -61,11 +61,13 @@
             <p class="mb-1 text-left">Subtotal</p>
             <h6 class="mb-1 text-right"><%= number_to_currency(@cart.sub_total) %></h6>
         </div>
-        <button class="btn-block btn-blue">
+        <button class="btn btn-block btn-danger">
             <span>
-                <span id="checkout"><%= button_to "Submit Payment", checkout_create_path, params: {cart_id: @cart.id }, remote: true %></span>
+                <span id="checkout"><%= button_to "Submit Payment", checkout_create_path, params: {cart_id: @cart.id }, remote: true, class: "btn" %></span>
                 <span id="check-amt"><%= number_to_currency(@cart.sub_total) %></span>
             </span>
         </button>
     </div>
+    <br>
+    <button class= "btn btn-danger mar-left"><%= link_to 'Back', products_path, class: "btn btn-danger" %></button>
 </div>
