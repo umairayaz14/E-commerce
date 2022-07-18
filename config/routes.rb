@@ -16,8 +16,9 @@ Rails.application.routes.draw do
     resources :comments
   end
   devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :coupons
   get 'order', to: 'orders#create', as: 'final_order'
   get 'orders', to: 'orders#index', as: 'orders'
   root 'products#index'

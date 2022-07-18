@@ -39,10 +39,10 @@
                 </div>
                 <div class="col-4">
                     <div class="row d-flex justify-content-end px-3">
+                        <h4 class="mb-0" id="cnt1"><%= line_item.quantity %></h4>
                         <div class="d-flex flex-column plus-minus">
-                            <%= link_to '+', line_item_add_path(id: line_item), method: :post, class: 'btn btn-primary' %>
-                            <p class="mb-0" id="cnt1"><%= line_item.quantity %></p>
-                            <%= link_to '-', line_item_reduce_path(id: line_item), method: :post, class: 'btn btn-primary' %>
+                            <span class="vsm-text plus"><%= link_to '+', line_item_add_path(id: line_item), method: :post %></span>
+                            <span class="vsm-text minus"><%= link_to '-', line_item_reduce_path(id: line_item), method: :post %></span>
                         </div>
                     </div>
                 </div>

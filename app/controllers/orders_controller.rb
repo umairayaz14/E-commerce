@@ -24,7 +24,11 @@ class OrdersController < ApplicationController
       item.cart_id = nil
     end
     @order.quantity = current_cart.total_quantity
-    @order.total = current_cart.sub_total
+    @order.total = if params[:coupon]
+                     current_cart.sub_total - (current_cart.sub_total * params[:coupon].to_f)
+                   else
+                     current_cart.sub_total
+                   end
     @order.user = current_user
     @order
   end
