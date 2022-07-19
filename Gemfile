@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.8'
 
 gem 'bootstrap'
+gem 'cloudinary'
 gem 'devise'
 gem 'jquery-rails'
 gem 'mini_magick'
