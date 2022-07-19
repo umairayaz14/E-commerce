@@ -1,10 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <%= form_tag  products_path, method: :get do %>
-  <p class="d-flex flex-row justify-content-center">
-    <%= text_field_tag :query,params[:query], class: "form-control col-4" %>
-    <%= submit_tag "Search",name:nil,class: " ml-1 btn btn-danger" %>
-  </p>
+    <div class=" col-12">
+      <%= text_field_tag :query,params[:query], class: "form-control" %>
+    </div>
+    <div class=" col-12">
+      <%= submit_tag "Search",name:nil,class: " ml-1 btn btn-danger" %>
+    </div>
 <% end %>
 
 <br>
@@ -37,10 +39,10 @@
                     <%= link_to 'Destroy', product_path(product), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
                     <%= link_to 'Edit', edit_product_path(product), class: "btn btn-danger" %>
                   <% end %>
-                </div>
               </div>
             </div>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
+  </div>

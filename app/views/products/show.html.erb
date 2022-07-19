@@ -26,9 +26,9 @@
         <br>
         <% if @product.quantity != 0 %>
          <% if current_user && current_user.id != @product.user_id%>
-           <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id), class: "btn" %>
+           <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id), class: "btn btn-danger" %>
          <% elsif current_user.nil? %>
-           <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id), class: "btn" %>
+           <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id), class: "btn btn-danger" %>
          <% else %>
            <p class="btn btn-danger dang">User can not add own product! </p>
          <% end %>
