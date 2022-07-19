@@ -23,17 +23,21 @@ class OrdersController < ApplicationController
       item.cart_id = nil
     end
     @order.quantity = current_cart.total_quantity
-    @order.total = if params[:coupon]
-                     current_cart.sub_total - (current_cart.sub_total * params[:coupon].to_f)
-                   else
-                     current_cart.sub_total
-                   end
+    @order.total = order_total
     @order.user = current_user
     @order
   end
 
   def update_product_stock
     current_cart.line_items.each { |item| item.product.update(quantity: item.product_quantity - item.quantity) }
+  end
+
+  def order_total
+    if params[:coupon]
+      current_cart.sub_total - (current_cart.sub_total * params[:coupon].to_f)
+    else
+      current_cart.sub_total
+    end
   end
 
   def empty_cart
