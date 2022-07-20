@@ -9,10 +9,10 @@ class OrdersController < ApplicationController
     update_product_stock
     if order.save
       empty_cart
-      redirect_to orders_path
     else
       flash[:warning] = 'Order could not be saved'
     end
+    redirect_to orders_path
   end
 
   private
