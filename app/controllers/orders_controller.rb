@@ -2,9 +2,10 @@
 
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_cart
   def index; end
 
-  def create
+  def success_payment
     update_product_stock
     if order.save
       empty_cart
@@ -18,25 +19,23 @@ class OrdersController < ApplicationController
 
   def order
     @order = Order.new
-    current_cart.line_items.each do |item|
+    @current_cart.line_items.each do |item|
       @order.line_items << item
       item.cart_id = nil
     end
-    @order.quantity = current_cart.total_quantity
-    @order.total = order_total
-    @order.user = current_user
+    @order.update(quantity: @current_cart.total_quantity, total: order_total, user: current_user)
     @order
   end
 
   def update_product_stock
-    current_cart.line_items.each { |item| item.product.update(quantity: item.product_quantity - item.quantity) }
+    @current_cart.line_items.each { |item| item.product.update(quantity: item.product_quantity - item.quantity) }
   end
 
   def order_total
     if params[:coupon]
-      current_cart.sub_total - (current_cart.sub_total * params[:coupon].to_f)
+      @current_cart.sub_total - (@current_cart.sub_total * params[:coupon].to_f)
     else
-      current_cart.sub_total
+      @current_cart.sub_total
     end
   end
 

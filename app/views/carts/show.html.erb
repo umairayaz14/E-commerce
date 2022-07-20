@@ -2,11 +2,11 @@
 <p id='notice'><%= alert %></p>
 
 
-<div class="positioning"><%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger dang" %></div>
+<div class="positioning"><%= link_to "Empty cart", cart_path(@current_cart),method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger dang" %></div>
 <div class="container px-4 py-5 mx-auto">
     <div class="row d-flex justify-content-center">
         <div class="col-5">
-            <h4 class="heading">Shopping Cart ( <%= @cart.total_quantity %> items)</h4>
+            <h4 class="heading">Shopping Cart ( <%= @current_cart.total_quantity %> items)</h4>
         </div>
         <div class="col-7">
             <div class="row text-right">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="row d-flex justify-content-center border-top">
-        <% @cart.line_items.each do |line_item| %>
+        <% @current_cart.line_items.each do |line_item| %>
         <div class="col-5">
             <div class="row d-flex">
                 <div class="my-auto flex-column d-flex pad-left">
@@ -41,8 +41,8 @@
                     <div class="row justify-content-end px-3">
                         <h4 class="mb-0 col-6 text-end" id="cnt1"><%= line_item.quantity %></h4>
                         <div class="col-6 plus-minus">
-                            <span class="vsm-text plus"><%= link_to '+', line_item_add_path(id: line_item), method: :post %></span>
-                            <span class="vsm-text minus"><%= link_to '-', line_item_reduce_path(id: line_item), method: :post %></span>
+                            <span class="vsm-text plus"><%= link_to '+', add_quantity_line_item_path(id: line_item), method: :post %></span>
+                            <span class="vsm-text minus"><%= link_to '-', reduce_quantity_line_item_path(id: line_item), method: :post %></span>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
     <div class="col-12">
         <div class="row d-flex justify-content-between px-4">
             <p class="mb-1 text-left">Subtotal</p>
-            <h6 class="mb-1 text-right"><%= number_to_currency(@cart.sub_total) %></h6>
+            <h6 class="mb-1 text-right"><%= number_to_currency(@current_cart.sub_total) %></h6>
         </div>
         <div>
            <%= render 'form' %>
@@ -67,8 +67,8 @@
         <br>
         <button class="btn btn-block w-100 btn-danger">
             <span>
-                <span id="checkout"><%= button_to "Submit Payment", checkout_create_path, params: {cart_id: @cart.id }, remote: true, class: "btn bg-light" %></span>
-                <span id="check-amt"><%= number_to_currency(@cart.sub_total) %></span>
+                <span id="checkout"><%= button_to "Submit Payment", checkout_index_path, params: {cart_id: @current_cart.id }, remote: true, class: "btn bg-light" %></span>
+                <span id="check-amt"><%= number_to_currency(@current_cart.sub_total) %></span>
             </span>
         </button>
     </div>

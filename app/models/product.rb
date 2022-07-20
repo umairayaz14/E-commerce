@@ -2,7 +2,7 @@
 
 class Product < ApplicationRecord
   belongs_to :user
-  has_many_attached :images
+  has_many_attached :images, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :line_items, dependent: :destroy
 

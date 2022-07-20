@@ -1,1 +1,6 @@
-$("#add-comment").append("<%= j render @comment %>");
+<% if flash[:alert].present? %>
+  alert('<%= flash[:alert] %>');
+<% else %>
+  alert('<%= flash[:notice] %>');
+  $("#add-comment").append("<%= j render @comment %>");
+<% end %>

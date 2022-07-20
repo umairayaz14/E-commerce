@@ -4,15 +4,13 @@ class CartsController < ApplicationController
   before_action :current_cart
   before_action :set_cart
 
-  def show
-    @cart = @current_cart
-  end
-
   def destroy
-    @cart = @current_cart
-    @cart.destroy
-    session[:cart_id] = nil
-    redirect_to root_path
+    if @current_cart.destroy
+      session[:cart_id] = nil
+      redirect_to root_path
+    else
+      flash[:alert] = 'Unable to empty cart!'
+    end
   end
 
   private
