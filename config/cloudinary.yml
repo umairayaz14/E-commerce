@@ -1,19 +1,19 @@
 ---
 development:
-  cloud_name: doy8fkmkm
-  api_key: '639111213674279'
-  api_secret: ktOK2KBzuooqYfLnvRaHuIq7MLc
+  cloud_name: Rails.application.credentials.cloudinary[:cloud_name]
+  api_key: Rails.application.credentials.cloudinary[:api_key]
+  api_secret: Rails.application.credentials.cloudinary[:api_secret]
   enhance_image_tag: true
   static_file_support: false
 production:
-  cloud_name: doy8fkmkm
-  api_key: '639111213674279'
+  cloud_name: Rails.application.credentials.cloudinary[:cloud_name]
+  api_key: Rails.application.credentials.cloudinary[:api_key]
   api_secret: ktOK2KBzuooqYfLnvRaHuIq7MLc
   enhance_image_tag: true
   static_file_support: true
 test:
-  cloud_name: doy8fkmkm
+  cloud_name: Rails.application.credentials.cloudinary[:cloud_name]
   api_key: '639111213674279'
-  api_secret: ktOK2KBzuooqYfLnvRaHuIq7MLc
+  api_secret: Rails.application.credentials.cloudinary[:api_secret]
   enhance_image_tag: true
   static_file_support: false
