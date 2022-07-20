@@ -1,33 +1,26 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[edit update destroy]
-  before_action :set_product, only: %i[new create set_comment]
   before_action :authenticate_user!
+  before_action :set_product, only: %i[create]
+  before_action :set_comment, only: %i[edit update destroy]
+  before_action :authorize_comment, only: %i[edit update destroy]
 
-  # GET /comments/new
-  def new
-    @comment = Comment.new
-    authorize @omment
-  end
-
-  # GET /comments/1/edit
   def edit; end
 
-  # POST /comments or /comments.json
   def create
     authorize @product, policy_class: CommentPolicy
     @comment = @product.comments.build(comment_params)
     respond_to do |format|
       if @comment.save
-        format.js
+        flash.now[:notice] = 'Commented successfully'
       else
-        format.html { render :new }
+        flash.now[:alert] = 'unable to post a comment.'
       end
+      format.js
     end
   end
 
-  # PATCH/PUT /comments/1 or /comments/1.json
   def update
     respond_to do |format|
       if @comment.update(comment_params)
@@ -40,7 +33,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /comments/1 or /comments/1.json
   def destroy
     respond_to do |format|
       if @comment.destroy
@@ -54,21 +46,21 @@ class CommentsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_product
     @product = Product.find(params[:product_id])
   end
 
   def set_comment
-    # @product = Product.find(params[:product_id])
-    @comment = @product.comments.find(params[:id])
-    authorize @comment
+    @comment = Comment.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def comment_params
     params.require(:comment).permit(:name, :description).tap do |params|
       params[:user_id] = current_user.id
     end
+  end
+
+  def authorize_comment
+    authorize @comment
   end
 end
