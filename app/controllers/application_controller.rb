@@ -35,4 +35,16 @@ class ApplicationController < ActionController::Base
       session[:cart_id] = @current_cart.id
     end
   end
+
+
+  # def current_cart
+  #   @current_cart = Cart.find_by(id: session[:cart_id]) if session[:cart_id]
+
+  #   session[:cart_id] = nil if @current_cart.nil?
+
+  #   return unless session[:cart_id].nil?
+
+  #   @current_cart = Cart.create
+  #   session[:cart_id] = @current_cart.id
+  # end
 end

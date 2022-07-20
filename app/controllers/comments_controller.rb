@@ -2,13 +2,13 @@
 
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[edit update destroy]
-  before_action :set_product, only: %i[new create]
+  before_action :set_product, only: %i[new create set_comment]
   before_action :authenticate_user!
 
   # GET /comments/new
   def new
     @comment = Comment.new
-    authorize @comment
+    authorize @omment
   end
 
   # GET /comments/1/edit
@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    @product = Product.find(params[:product_id])
+    # @product = Product.find(params[:product_id])
     @comment = @product.comments.find(params[:id])
     authorize @comment
   end

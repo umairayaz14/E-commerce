@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
       @order.line_items << item
       item.cart_id = nil
     end
-    @order.quantity = current_cart.total_quantity
+    @order.quantity = current_cart.total_quantity  #@order.update
     @order.total = order_total
     @order.user = current_user
     @order

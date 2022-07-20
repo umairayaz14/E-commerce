@@ -3,10 +3,12 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[edit show update destroy]
   before_action :authenticate_user!, except: %i[index show]
+  #before_action
   # GET /products or /products.json
   def index
     @products = Product.all
     authorize @products
+    # authorize Product
 
     query = params[:query]
     @products = @products.where("name ILIKE '%#{query}%'") if query.present?
@@ -64,4 +66,8 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:name, :description, :price, :quantity, images: [])
   end
+
+  # def autoriztion
+  #   authorize Product
+  # end
 end
