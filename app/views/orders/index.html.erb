@@ -1,12 +1,38 @@
 <h2>All Orders</h2>
 
-<% current_user.orders.each do |order| %>
-    <p>Quantity: <%= order.quantity %></p>
-    <p>Total Price: <%= order.total %></p>
-    <p>Line Items: </p>
-    <ul>
-      <% order.line_items.each do |item| %>
-      <li><%= item.quantity %> x <%= item.product.name %></li>
-      <% end %>
-    </ul>
-<% end %>
+<div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10">
+                <div class="rounded">
+                    <div class="table-responsive table-borderless">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                    </th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                    <th>Line Items</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                                <% current_user.orders.each do |order| %>
+                                  <tr class="cell-1">
+                                      <td class="text-center">
+                                      </td>
+                                      <td> <%= order.quantity %> </td>
+                                      <td> <%= order.total %> </td>
+                                      <td><ul>
+                                        <% order.line_items.each do |item| %>
+                                        <li><%= item.quantity %> x <%= item.product.name %></li>
+                                        <% end %>
+                                    </ul></td>
+                                  </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

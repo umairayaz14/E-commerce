@@ -1,0 +1,12 @@
+<%= form_with(url: checkout_index_path) do |form| %>
+
+  <div class="field">
+    <%= form.label :coupon_name %>
+    <br>
+    <%= form.text_field :coupon_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "checkout" %>
+  </div>
+<% end %>

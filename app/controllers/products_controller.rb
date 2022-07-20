@@ -1,14 +1,13 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:edit, :show, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
-  # GET /products or /products.json
+  before_action :set_product, only: %i[edit show update destroy]
+  before_action :authenticate_user!, except: %i[index show]
   def index
     @products = Product.all
     authorize @products
-
     query = params[:query]
     @products = @products.where("name ILIKE '%#{query}%'") if query.present?
-
   end
 
   def new
@@ -17,11 +16,9 @@ class ProductsController < ApplicationController
   end
 
   def show
-    # @comment = @product.comments.build
     @comment = Comment.new
-    # @comment.user_id = current_user.id if current_user.present?
   end
-  # POST /products or /products.json
+
   def create
     @product = current_user.products.new(product_params)
     authorize @product
@@ -32,7 +29,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1 or /products/1.json
   def destroy
     if @product.destroy
       redirect_to products_path, notice: 'Product was successfully destroyed.'
@@ -49,17 +45,16 @@ class ProductsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   private
-    def set_product
-      @product = Product.find(params[:id])
-      authorize @product
-    end
 
-    # Only allow a list of trusted parameters through.
-    def product_params
-      params.require(:product).permit(:name, :description, :price, :quantity, images: [])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+    authorize @product
+  end
+
+  def product_params
+    params.require(:product).permit(:name, :description, :price, :quantity, images: [])
+  end
 end

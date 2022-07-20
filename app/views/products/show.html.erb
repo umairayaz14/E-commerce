@@ -24,7 +24,17 @@
         </div>
         <br>
         <br>
-        <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id) %>
+        <% if @product.quantity != 0 %>
+         <% if current_user && current_user.id != @product.user_id%>
+           <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id), class: "btn btn-danger" %>
+         <% elsif current_user.nil? %>
+           <%= button_to "Add #{@product.name} to cart", line_items_path(product_id: @product.id), class: "btn btn-danger" %>
+         <% else %>
+           <p class="btn btn-danger dang">User can not add own product! </p>
+         <% end %>
+        <% else %>
+         <p class="btn btn-danger dang">Product out of stock! </p>
+        <% end %>
 </div>
 
 <div class="container">
@@ -33,11 +43,13 @@
                 <h1>Comments</h1>
                 <% @product.comments.each do |comment| %>
                    <div class="darker mt-4 text-justify col-12">
-                    <h4 style="color: white" ><%= comment.name%></h4>
+                    <h4 style="color: white" ><%= comment.name%> <span> - <%= comment.user.username %> </span></h4>
                     <br>
                     <p><%= comment.description %></p>
-                     <%=link_to "Edit", edit_product_comment_path(comment.product_id, comment)%>
-                     <%= link_to 'Destroy', product_comment_path(comment.product_id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <% if current_user && current_user.id == comment.user_id %>
+                      <%=link_to "Edit", edit_product_comment_path(comment.product_id, comment)%>
+                      <%= link_to 'Destroy', product_comment_path(comment.product_id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <% end %>
                    </div>
                 <% end %>
             </div>

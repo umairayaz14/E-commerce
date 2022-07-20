@@ -1,40 +1,46 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
-
   before_action :authenticate_user!
-  def index
-  end
+  before_action :current_cart
+  def index; end
 
-  def create
-    @order = Order.new
-    current_cart.line_items.each do |item|
-      @order.line_items << item
-      # @order.line_items.each do |ord|
-      #   ord.product_id = item.product_id
-      #   ord.cart_id = item.cart_id
-      #   ord.quantity = item.cart_id
-      # end
-      # @order.line_items.new(
-      #   product_id: item.product_id,
-      #   cart_id: item.cart_id,
-      #   quantity: item.cart_id
-      # )
-      item.cart_id = nil
-    end
-    @order.quantity = current_cart.total_quantity
-    @order.total = current_cart.sub_total
-    @order.user_id = current_user.id
-    if @order.save
-      Cart.destroy(session[:cart_id])
-      session[:cart_id] = nil
-      redirect_to orders_path
+  def success_payment
+    update_product_stock
+    if order.save
+      empty_cart
     else
-      flash[:warning] = "Order could not be saved"
+      flash[:warning] = 'Order could not be saved'
     end
+    redirect_to orders_path
   end
 
   private
-    def order_params
-      params.require(:order).permit(:cart_id, :user_id)
-    end
 
+  def order
+    @order = Order.new
+    @current_cart.line_items.each do |item|
+      @order.line_items << item
+      item.cart_id = nil
+    end
+    @order.update(quantity: @current_cart.total_quantity, total: order_total, user: current_user)
+    @order
+  end
+
+  def update_product_stock
+    @current_cart.line_items.each { |item| item.product.update(quantity: item.product_quantity - item.quantity) }
+  end
+
+  def order_total
+    if params[:coupon]
+      @current_cart.sub_total - (@current_cart.sub_total * params[:coupon].to_f)
+    else
+      @current_cart.sub_total
+    end
+  end
+
+  def empty_cart
+    Cart.destroy(session[:cart_id])
+    session[:cart_id] = nil
+  end
 end

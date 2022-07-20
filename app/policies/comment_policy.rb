@@ -1,4 +1,9 @@
+# frozen_string_literal: true
+
 class CommentPolicy < ApplicationPolicy
+  def edit?
+    update?
+  end
 
   def create?
     user.id != record.user_id

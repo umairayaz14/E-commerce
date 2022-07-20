@@ -95,7 +95,6 @@ body{
 }
 
 h1,h4{
-  color: white;
   font-weight: bold;
 }
 label{
@@ -127,9 +126,10 @@ label{
 
 form{
   border: 1px solid rgba(16, 46, 46, 1);
-  background-color: rgba(16, 46, 46, 0.973);
+  background-color: rgba(16, 46, 46, 1);
   border-radius: 5px;
   padding: 20px;
+  text-align: center;
 }
 
 .ovf{

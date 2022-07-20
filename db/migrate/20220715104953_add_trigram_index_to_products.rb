@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTrigramIndexToProducts < ActiveRecord::Migration[5.2]
   def up
     enable_extension 'pg_trgm'
