@@ -9,7 +9,6 @@ class Cart < ApplicationRecord
   end
 
   def total_quantity
-    # line_item.pluck(:quantity).sum
     line_items.inject(0) { |total, line_item| total + line_item.quantity }
   end
 end

@@ -3,6 +3,7 @@
 class LineItemsController < ApplicationController
   before_action :current_cart
   before_action :set_product, only: %i[create]
+
   def create
     if @current_cart.products.include?(@chosen_product)
       @line_item = @current_cart.line_items.find_by(product_id: @chosen_product)
@@ -12,12 +13,14 @@ class LineItemsController < ApplicationController
       @line_item.cart = @current_cart
       @line_item.product = @chosen_product
     end
+
     @line_item.save
     redirect_to cart_path(@current_cart)
   end
 
   def destroy
     @line_item = LineItem.find(params[:id])
+    
     if @line_item.destroy
       redirect_to cart_path(@current_cart), notice: 'Product was successfully destroyed.'
     else

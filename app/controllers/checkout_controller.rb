@@ -4,11 +4,14 @@ class CheckoutController < ApplicationController
   before_action :authenticate_user!
   before_action :current_cart
   before_action :set_coupon, only: %i[create]
+
   def create
     @url = url_link
+
     if @coupon && Date.current <= @coupon.valid_til || @coupon.nil?
       @temp = Stripe::Coupon.create(percent_off: @coupon.value * 100, duration: 'once') if @coupon
       @session = stripe_session
+
       respond_to do |format|
         format.js
       end
