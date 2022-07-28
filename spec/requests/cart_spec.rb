@@ -17,6 +17,15 @@ RSpec.describe 'Carts', type: :request do
       expect(response).to redirect_to(root_path)
     end
 
+    it 'deletes cart (find)' do
+      get cart_path('abc')
+      id = Cart.last.id
+
+      delete cart_path(id)
+
+      expect(Cart.find_by(id: id)).to be_nil
+    end
+
     it 'deletes cart (count)' do
       expect { delete cart_path(crt) }.to change(Cart, :count).by(1)
     end
