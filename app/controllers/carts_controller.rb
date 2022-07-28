@@ -5,12 +5,9 @@ class CartsController < ApplicationController
   before_action :set_cart
 
   def destroy
-    if @current_cart.destroy
-      session[:cart_id] = nil
-      redirect_to root_path
-    else
-      flash[:alert] = 'Unable to empty cart!'
-    end
+    return unless @current_cart.destroy
+    session[:cart_id] = nil
+    redirect_to root_path
   end
 
   private

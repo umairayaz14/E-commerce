@@ -20,7 +20,6 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item = LineItem.find(params[:id])
-    
     if @line_item.destroy
       redirect_to cart_path(@current_cart), notice: 'Product was successfully destroyed.'
     else
