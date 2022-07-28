@@ -34,6 +34,14 @@ RSpec.describe 'Comments', type: :request do
       expect(response).to have_http_status(:ok)
     end
 
+    it 'creates a comment (count)' do
+      expect do
+        post product_comments_path(prod),
+             params: { comment: { name: 'tests', description: 'testdescription' },
+                       format: :js }
+      end.to change(Comment, :count).by(1)
+    end
+
     it 'does not create a comment (flash)' do
       post product_comments_path(prod), params: { comment: { name: '', description: 'testdescription' }, format: :js }
       expect(flash[:alert]).to eq('unable to post a comment.')
@@ -42,6 +50,14 @@ RSpec.describe 'Comments', type: :request do
     it 'does not create a comment (status)' do
       post product_comments_path(prod), params: { comment: { name: '', description: 'testdescription' }, format: :js }
       expect(response).to have_http_status(:ok)
+    end
+
+    it 'does not create a comment (count)' do
+      expect do
+        post product_comments_path(prod),
+             params: { comment: { name: '', description: 'testdescription' },
+                       format: :js }
+      end.to change(Comment, :count).by(0)
     end
   end
 
