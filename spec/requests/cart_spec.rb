@@ -7,9 +7,14 @@ RSpec.describe 'Carts', type: :request do
   let(:crt) { create(:cart, user_id: usr.id) }
 
   describe 'DELETE #destroy' do
-    it 'deletes cart' do
+    it 'deletes cart (status)' do
       delete cart_path(crt)
       expect(response).to have_http_status(:redirect)
+    end
+
+    it 'deletes cart (route)' do
+      delete cart_path(crt)
+      expect(response).to redirect_to(root_path)
     end
   end
 end

@@ -38,8 +38,6 @@ class CommentsController < ApplicationController
       if @comment.destroy
         format.html { redirect_to product_url(@product), notice: 'Comment was successfully destroyed.' }
         format.json { head :no_content }
-      else
-        flash[:alert] = 'Unable to destroy comment!'
       end
     end
   end
