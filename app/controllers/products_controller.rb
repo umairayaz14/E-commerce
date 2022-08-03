@@ -5,9 +5,13 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   def index
     @products = Product.all
-    authorize @products
+    # authorize @products
     query = params[:query]
     @products = @products.where("name ILIKE '%#{query}%'") if query.present?
+    respond_to do |format|
+      format.html
+      format.json { render json: @products }
+    end
   end
 
   def new
@@ -17,6 +21,16 @@ class ProductsController < ApplicationController
 
   def show
     @comment = Comment.new
+    @comments = @product.comments
+    @img = []
+    @images = @product.images.all
+    @images&.each do |image|
+      @img += [Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true)]
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: { comments: @comments, product: @product, images: @img } }
+    end
   end
 
   def create
@@ -51,7 +65,7 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:id])
-    authorize @product
+    # authorize @product
   end
 
   def product_params
